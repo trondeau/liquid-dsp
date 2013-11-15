@@ -789,7 +789,7 @@ modem_includes :=						\
 	src/modem/src/modem_sqam32.c				\
 	src/modem/src/modem_sqam128.c				\
 	src/modem/src/modem_arb.c				\
-	
+
 #src/modem/src/modem_demod_soft_const.c
 
 # main modem object
@@ -1074,7 +1074,7 @@ objects :=							\
 	$(sequence_objects)					\
 	$(utility_objects)					\
 	@EXPERIMENTAL_MLIBS@
-	
+
 
 autotest_sources :=						\
 	autotest/null_autotest.c				\
@@ -1098,7 +1098,7 @@ autotest_sources :=						\
 	$(sequence_autotests)					\
 	$(utility_autotests)					\
 	@EXPERIMENTAL_AUTOTESTS@
-	
+
 
 benchmark_sources :=						\
 	bench/null_benchmark.c					\
@@ -1164,11 +1164,11 @@ help:
 
 install:
 	@echo "installing..."
-	mkdir -p $(exec_prefix)/lib
-	install -m 644 -p $(SHARED_LIB) libliquid.a $(exec_prefix)/lib
-	mkdir -p $(prefix)/include
-	mkdir -p $(prefix)/include/liquid
-	install -m 644 -p $(addprefix include/,$(headers_install)) $(prefix)/include/liquid
+	mkdir -p $(DESTDIR)$(exec_prefix)/lib
+	install -m 644 -p $(SHARED_LIB) libliquid.a $(DESTDIR)$(exec_prefix)/lib
+	mkdir -p $(DESTDIR)$(prefix)/include
+	mkdir -p $(DESTDIR)$(prefix)/include/liquid
+	install -m 644 -p $(addprefix include/,$(headers_install)) $(DESTDIR)$(prefix)/include/liquid
 	@echo ""
 	@echo "---------------------------------------------------------"
 	@echo "  liquid-dsp was successfully installed.     "
