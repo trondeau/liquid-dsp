@@ -1,3 +1,5 @@
+*~
+
 # ignore all object files
 *.o
 *.d
@@ -5,6 +7,8 @@
 *.dSYM
 *.a
 *.so
+*.so.?.?.?
+*.so.?
 
 # ignore swap files for vim editing
 *.swp
@@ -26,6 +30,7 @@ config.log
 config.status
 makefile
 xautotest
+liquid.pc
 *.m
 
 # miscellany
