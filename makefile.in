@@ -1173,6 +1173,8 @@ install:
 	mkdir -p $(DESTDIR)$(prefix)/include
 	mkdir -p $(DESTDIR)$(prefix)/include/liquid
 	install -m 644 -p $(addprefix include/,$(headers_install)) $(DESTDIR)$(prefix)/include/liquid
+	mkdir -p $(DESTDIR)$(exec_prefix)/lib/pkgconfig
+	install -m 644 -p liquid.pc $(DESTDIR)$(exec_prefix)/lib/pkgconfig
 	@echo ""
 	@echo "---------------------------------------------------------"
 	@echo "  liquid-dsp was successfully installed.     "

@@ -324,5 +324,5 @@ AC_SUBST(EPSTOPDF)                  # epstopdf
 AC_SUBST(GNUPLOT)                   # gnuplot
 AC_SUBST(PYGMENTIZE)                # pygmentize
 
-AC_CONFIG_FILES([makefile doc/makefile])
+AC_CONFIG_FILES([makefile doc/makefile liquid.pc])
 AC_OUTPUT
