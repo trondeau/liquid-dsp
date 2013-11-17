@@ -289,7 +289,9 @@ darwin*)
     REBIND=""
     ;;
 *)
-    SH_LIB=libliquid.so
+    SH_LIB_BASE=libliquid.so
+    SH_LIB_LN=libliquid.so.0
+    SH_LIB=libliquid.so.0.0.0
     REBIND=ldconfig
     ;;
 esac
@@ -305,6 +307,8 @@ AC_SUBST(EXPERIMENTAL_AUTOTESTS)    # experimental autotests
 AC_SUBST(EXPERIMENTAL_BENCHMARKS)   # experimental benchmarks
 AC_SUBST(EXPERIMENTAL_EXAMPLES)     # experimental examples
 
+AC_SUBST(SH_LIB_BASE)               # output shared library target
+AC_SUBST(SH_LIB_LN)                 # output shared library target
 AC_SUBST(SH_LIB)                    # output shared library target
 AC_SUBST(REBIND)                    # rebinding tool (e.g. ldconfig)
 AC_SUBST(ARCH_OPTION)               # compiler architecture option

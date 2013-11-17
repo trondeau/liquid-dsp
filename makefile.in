@@ -49,7 +49,7 @@ srcdir = @srcdir@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 VPATH = @srcdir@
-include_dirs	:= . include
+include_dirs	:= . $(srcdir)/include
 vpath %.h $(include_dirs)
 modulesdir = src
 
@@ -105,17 +105,17 @@ agc_objects =							\
 
 # explicit targets and dependencies
 
-src/agc/src/agc_crcf.o : %.o : %.c src/agc/src/agc.c $(headers)
+src/agc/src/agc_crcf.o : %.o : %.c $(srcdir)/src/agc/src/agc.c $(headers)
 
-src/agc/src/agc_rrrf.o : %.o : %.c src/agc/src/agc.c $(headers)
+src/agc/src/agc_rrrf.o : %.o : %.c $(srcdir)/src/agc/src/agc.c $(headers)
 
 # autotests
 agc_autotests :=						\
-	src/agc/tests/agc_crcf_autotest.c			\
+	$(srcdir)/src/agc/tests/agc_crcf_autotest.c			\
 
 # benchmarks
 agc_benchmarks :=						\
-	src/agc/bench/agc_crcf_benchmark.c			\
+	$(srcdir)/src/agc/bench/agc_crcf_benchmark.c			\
 
 #
 # MODULE : audio
@@ -123,16 +123,16 @@ agc_benchmarks :=						\
 
 # described below
 audio_objects :=						\
-	src/audio/src/cvsd.o					\
+	$(srcdir)/src/audio/src/cvsd.o					\
 
 src/cvsd/src/cvsd.o : %.o : %.c $(headers)
 
 
 audio_autotests :=						\
-	src/audio/tests/cvsd_autotest.c				\
+	$(srcdir)/src/audio/tests/cvsd_autotest.c				\
 
 audio_benchmarks :=						\
-	src/audio/bench/cvsd_benchmark.c			\
+	$(srcdir)/src/audio/bench/cvsd_benchmark.c			\
 
 
 # 
@@ -143,12 +143,12 @@ buffer_objects :=						\
 	src/buffer/src/bufferf.o				\
 	src/buffer/src/buffercf.o				\
 
-#	src/buffer/src/bufferui.c				\
+#	$(srcdir)/src/buffer/src/bufferui.c				\
 
 buffer_includes :=						\
-	src/buffer/src/buffer.c					\
-	src/buffer/src/wdelay.c					\
-	src/buffer/src/window.c					\
+	$(srcdir)/src/buffer/src/buffer.c					\
+	$(srcdir)/src/buffer/src/wdelay.c					\
+	$(srcdir)/src/buffer/src/window.c					\
 
 src/buffer/src/bufferf.o : %.o : %.c $(headers) $(buffer_includes)
 
@@ -158,14 +158,14 @@ src/buffer/src/bufferui.o : %.o : %.c $(headers) $(buffer_includes)
 
 
 buffer_autotests :=						\
-	src/buffer/tests/cbuffer_autotest.c			\
-	src/buffer/tests/sbuffer_autotest.c			\
-	src/buffer/tests/wdelay_autotest.c			\
-	src/buffer/tests/window_autotest.c			\
+	$(srcdir)/src/buffer/tests/cbuffer_autotest.c			\
+	$(srcdir)/src/buffer/tests/sbuffer_autotest.c			\
+	$(srcdir)/src/buffer/tests/wdelay_autotest.c			\
+	$(srcdir)/src/buffer/tests/window_autotest.c			\
 
 buffer_benchmarks :=						\
-	src/buffer/bench/window_push_benchmark.c		\
-	src/buffer/bench/window_read_benchmark.c		\
+	$(srcdir)/src/buffer/bench/window_push_benchmark.c		\
+	$(srcdir)/src/buffer/bench/window_read_benchmark.c		\
 
 # 
 # MODULE : dotprod
@@ -173,11 +173,11 @@ buffer_benchmarks :=						\
 dotprod_objects :=						\
 	@MLIBS_DOTPROD@						\
 
-src/dotprod/src/dotprod_cccf.o : %.o : %.c $(headers) src/dotprod/src/dotprod.c
+src/dotprod/src/dotprod_cccf.o : %.o : %.c $(headers) $(srcdir)/src/dotprod/src/dotprod.c
 
-src/dotprod/src/dotprod_crcf.o : %.o : %.c $(headers) src/dotprod/src/dotprod.c
+src/dotprod/src/dotprod_crcf.o : %.o : %.c $(headers) $(srcdir)/src/dotprod/src/dotprod.c
 
-src/dotprod/src/dotprod_rrrf.o : %.o : %.c $(headers) src/dotprod/src/dotprod.c
+src/dotprod/src/dotprod_rrrf.o : %.o : %.c $(headers) $(srcdir)/src/dotprod/src/dotprod.c
 
 src/dotprod/src/sumsq.o : %.o : %.c $(headers)
 
@@ -197,39 +197,39 @@ src/dotprod/src/sumsq.mmx.o : %.o : %.c $(headers)
 src/dotprod/src/dotprod_rrrf.sse4.o : %.o : %.c $(headers)
 
 dotprod_autotests :=						\
-	src/dotprod/tests/dotprod_rrrf_autotest.c		\
-	src/dotprod/tests/dotprod_crcf_autotest.c		\
-	src/dotprod/tests/dotprod_cccf_autotest.c		\
-	src/dotprod/tests/sumsqf_autotest.c			\
-	src/dotprod/tests/sumsqcf_autotest.c			\
+	$(srcdir)/src/dotprod/tests/dotprod_rrrf_autotest.c		\
+	$(srcdir)/src/dotprod/tests/dotprod_crcf_autotest.c		\
+	$(srcdir)/src/dotprod/tests/dotprod_cccf_autotest.c		\
+	$(srcdir)/src/dotprod/tests/sumsqf_autotest.c			\
+	$(srcdir)/src/dotprod/tests/sumsqcf_autotest.c			\
 
 dotprod_benchmarks :=						\
-	src/dotprod/bench/dotprod_cccf_benchmark.c		\
-	src/dotprod/bench/dotprod_crcf_benchmark.c		\
-	src/dotprod/bench/dotprod_rrrf_benchmark.c		\
-	src/dotprod/bench/sumsqf_benchmark.c			\
-	src/dotprod/bench/sumsqcf_benchmark.c			\
+	$(srcdir)/src/dotprod/bench/dotprod_cccf_benchmark.c		\
+	$(srcdir)/src/dotprod/bench/dotprod_crcf_benchmark.c		\
+	$(srcdir)/src/dotprod/bench/dotprod_rrrf_benchmark.c		\
+	$(srcdir)/src/dotprod/bench/sumsqf_benchmark.c			\
+	$(srcdir)/src/dotprod/bench/sumsqcf_benchmark.c			\
 
 # 
 # MODULE : equalization
 #
 equalization_objects :=						\
-	src/equalization/src/equalizer_cccf.o			\
-	src/equalization/src/equalizer_rrrf.o			\
+	$(srcdir)/src/equalization/src/equalizer_cccf.o			\
+	$(srcdir)/src/equalization/src/equalizer_rrrf.o			\
 
 
-$(equalization_objects) : %.o : %.c $(headers) src/equalization/src/eqlms.c src/equalization/src/eqrls.c
+$(equalization_objects) : %.o : %.c $(headers) $(srcdir)/src/equalization/src/eqlms.c $(srcdir)/src/equalization/src/eqrls.c
 
 
 # autotests
 equalization_autotests :=					\
-	src/equalization/tests/eqrls_rrrf_autotest.c		\
+	$(srcdir)/src/equalization/tests/eqrls_rrrf_autotest.c		\
 
 
 # benchmarks
 equalization_benchmarks :=					\
-	src/equalization/bench/eqlms_cccf_benchmark.c		\
-	src/equalization/bench/eqrls_cccf_benchmark.c		\
+	$(srcdir)/src/equalization/bench/eqlms_cccf_benchmark.c		\
+	$(srcdir)/src/equalization/bench/eqrls_cccf_benchmark.c		\
 
 # 
 # MODULE : fec - forward error-correction
@@ -265,34 +265,34 @@ $(fec_objects) : %.o : %.c $(headers)
 
 # autotests
 fec_autotests :=						\
-	src/fec/tests/crc_autotest.c				\
-	src/fec/tests/fec_autotest.c				\
-	src/fec/tests/fec_soft_autotest.c			\
-	src/fec/tests/fec_golay2412_autotest.c			\
-	src/fec/tests/fec_hamming74_autotest.c			\
-	src/fec/tests/fec_hamming84_autotest.c			\
-	src/fec/tests/fec_hamming128_autotest.c			\
-	src/fec/tests/fec_hamming1511_autotest.c		\
-	src/fec/tests/fec_hamming3126_autotest.c		\
-	src/fec/tests/fec_reedsolomon_autotest.c		\
-	src/fec/tests/fec_rep3_autotest.c			\
-	src/fec/tests/fec_rep5_autotest.c			\
-	src/fec/tests/fec_secded2216_autotest.c			\
-	src/fec/tests/fec_secded3932_autotest.c			\
-	src/fec/tests/fec_secded7264_autotest.c			\
-	src/fec/tests/interleaver_autotest.c			\
-	src/fec/tests/packetizer_autotest.c			\
+	$(srcdir)/src/fec/tests/crc_autotest.c				\
+	$(srcdir)/src/fec/tests/fec_autotest.c				\
+	$(srcdir)/src/fec/tests/fec_soft_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_golay2412_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_hamming74_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_hamming84_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_hamming128_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_hamming1511_autotest.c		\
+	$(srcdir)/src/fec/tests/fec_hamming3126_autotest.c		\
+	$(srcdir)/src/fec/tests/fec_reedsolomon_autotest.c		\
+	$(srcdir)/src/fec/tests/fec_rep3_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_rep5_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_secded2216_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_secded3932_autotest.c			\
+	$(srcdir)/src/fec/tests/fec_secded7264_autotest.c			\
+	$(srcdir)/src/fec/tests/interleaver_autotest.c			\
+	$(srcdir)/src/fec/tests/packetizer_autotest.c			\
 
 
 # benchmarks
 fec_benchmarks :=						\
-	src/fec/bench/crc_benchmark.c				\
-	src/fec/bench/fec_encode_benchmark.c			\
-	src/fec/bench/fec_decode_benchmark.c			\
-	src/fec/bench/fecsoft_decode_benchmark.c		\
-	src/fec/bench/sumproduct_benchmark.c			\
-	src/fec/bench/interleaver_benchmark.c			\
-	src/fec/bench/packetizer_decode_benchmark.c		\
+	$(srcdir)/src/fec/bench/crc_benchmark.c				\
+	$(srcdir)/src/fec/bench/fec_encode_benchmark.c			\
+	$(srcdir)/src/fec/bench/fec_decode_benchmark.c			\
+	$(srcdir)/src/fec/bench/fecsoft_decode_benchmark.c		\
+	$(srcdir)/src/fec/bench/sumproduct_benchmark.c			\
+	$(srcdir)/src/fec/bench/interleaver_benchmark.c			\
+	$(srcdir)/src/fec/bench/packetizer_decode_benchmark.c		\
 
 # 
 # MODULE : fft - fast Fourier transforms, discrete sine/cosine transforms, etc.
@@ -328,12 +328,12 @@ src/fft/src/mdct.o : %.o : %.c $(headers)
 
 # fft autotest scripts
 fft_autotests :=						\
-	src/fft/tests/fft_small_autotest.c			\
-	src/fft/tests/fft_radix2_autotest.c			\
-	src/fft/tests/fft_composite_autotest.c			\
-	src/fft/tests/fft_prime_autotest.c			\
-	src/fft/tests/fft_r2r_autotest.c			\
-	src/fft/tests/fft_shift_autotest.c			\
+	$(srcdir)/src/fft/tests/fft_small_autotest.c			\
+	$(srcdir)/src/fft/tests/fft_radix2_autotest.c			\
+	$(srcdir)/src/fft/tests/fft_composite_autotest.c			\
+	$(srcdir)/src/fft/tests/fft_prime_autotest.c			\
+	$(srcdir)/src/fft/tests/fft_r2r_autotest.c			\
+	$(srcdir)/src/fft/tests/fft_shift_autotest.c			\
 
 # additional autotest objects
 autotest_extra_obj +=						\
@@ -377,10 +377,10 @@ autotest_extra_obj +=						\
 
 # fft benchmark scripts
 fft_benchmarks :=						\
-	src/fft/bench/fft_composite_benchmark.c			\
-	src/fft/bench/fft_prime_benchmark.c			\
-	src/fft/bench/fft_radix2_benchmark.c			\
-	src/fft/bench/fft_r2r_benchmark.c			\
+	$(srcdir)/src/fft/bench/fft_composite_benchmark.c			\
+	$(srcdir)/src/fft/bench/fft_prime_benchmark.c			\
+	$(srcdir)/src/fft/bench/fft_radix2_benchmark.c			\
+	$(srcdir)/src/fft/bench/fft_r2r_benchmark.c			\
 
 # additional benchmark objects
 benchmark_extra_obj :=						\
@@ -415,20 +415,20 @@ filter_objects :=						\
 
 # list explicit targets and dependencies here
 filter_includes :=						\
-	src/filter/src/firdecim.c				\
-	src/filter/src/firfarrow.c				\
-	src/filter/src/firfilt.c				\
-	src/filter/src/firhilb.c				\
-	src/filter/src/firinterp.c				\
-	src/filter/src/firpfb.c					\
-	src/filter/src/iirdecim.c				\
-	src/filter/src/iirfilt.c				\
-	src/filter/src/iirfiltsos.c				\
-	src/filter/src/iirinterp.c				\
-	src/filter/src/msresamp.c				\
-	src/filter/src/resamp.c					\
-	src/filter/src/resamp2.c				\
-	src/filter/src/symsync.c				\
+	$(srcdir)/src/filter/src/firdecim.c				\
+	$(srcdir)/src/filter/src/firfarrow.c				\
+	$(srcdir)/src/filter/src/firfilt.c				\
+	$(srcdir)/src/filter/src/firhilb.c				\
+	$(srcdir)/src/filter/src/firinterp.c				\
+	$(srcdir)/src/filter/src/firpfb.c					\
+	$(srcdir)/src/filter/src/iirdecim.c				\
+	$(srcdir)/src/filter/src/iirfilt.c				\
+	$(srcdir)/src/filter/src/iirfiltsos.c				\
+	$(srcdir)/src/filter/src/iirinterp.c				\
+	$(srcdir)/src/filter/src/msresamp.c				\
+	$(srcdir)/src/filter/src/resamp.c					\
+	$(srcdir)/src/filter/src/resamp2.c				\
+	$(srcdir)/src/filter/src/symsync.c				\
 
 src/filter/src/bessel.o : %.o : %.c $(headers)
 
@@ -470,83 +470,83 @@ src/filter/src/rrcos.o : %.o : %.c $(headers)
 
 
 filter_autotests :=						\
-	src/filter/tests/filter_crosscorr_autotest.c		\
-	src/filter/tests/firdecim_xxxf_autotest.c		\
-	src/filter/tests/firdes_autotest.c			\
-	src/filter/tests/firdespm_autotest.c			\
-	src/filter/tests/firfilt_xxxf_autotest.c		\
-	src/filter/tests/firhilb_autotest.c			\
-	src/filter/tests/firinterp_autotest.c			\
-	src/filter/tests/firpfb_autotest.c			\
-	src/filter/tests/groupdelay_autotest.c			\
-	src/filter/tests/iirdes_autotest.c			\
-	src/filter/tests/iirfilt_xxxf_autotest.c		\
-	src/filter/tests/iirfiltsos_rrrf_autotest.c		\
-	src/filter/tests/msresamp_crcf_autotest.c		\
-	src/filter/tests/resamp_crcf_autotest.c			\
-	src/filter/tests/resamp2_crcf_autotest.c		\
+	$(srcdir)/src/filter/tests/filter_crosscorr_autotest.c		\
+	$(srcdir)/src/filter/tests/firdecim_xxxf_autotest.c		\
+	$(srcdir)/src/filter/tests/firdes_autotest.c			\
+	$(srcdir)/src/filter/tests/firdespm_autotest.c			\
+	$(srcdir)/src/filter/tests/firfilt_xxxf_autotest.c		\
+	$(srcdir)/src/filter/tests/firhilb_autotest.c			\
+	$(srcdir)/src/filter/tests/firinterp_autotest.c			\
+	$(srcdir)/src/filter/tests/firpfb_autotest.c			\
+	$(srcdir)/src/filter/tests/groupdelay_autotest.c			\
+	$(srcdir)/src/filter/tests/iirdes_autotest.c			\
+	$(srcdir)/src/filter/tests/iirfilt_xxxf_autotest.c		\
+	$(srcdir)/src/filter/tests/iirfiltsos_rrrf_autotest.c		\
+	$(srcdir)/src/filter/tests/msresamp_crcf_autotest.c		\
+	$(srcdir)/src/filter/tests/resamp_crcf_autotest.c			\
+	$(srcdir)/src/filter/tests/resamp2_crcf_autotest.c		\
 
 # additional autotest objects
 autotest_extra_obj +=						\
 	src/filter/tests/firdecim_runtest.o			\
 								\
-	src/filter/tests/data/firdecim_rrrf_data_M2h4x20.o	\
-	src/filter/tests/data/firdecim_crcf_data_M2h4x20.o	\
-	src/filter/tests/data/firdecim_cccf_data_M2h4x20.o	\
-								\
-	src/filter/tests/data/firdecim_rrrf_data_M3h7x30.o	\
-	src/filter/tests/data/firdecim_crcf_data_M3h7x30.o	\
-	src/filter/tests/data/firdecim_cccf_data_M3h7x30.o	\
-								\
-	src/filter/tests/data/firdecim_rrrf_data_M4h13x40.o	\
-	src/filter/tests/data/firdecim_crcf_data_M4h13x40.o	\
-	src/filter/tests/data/firdecim_cccf_data_M4h13x40.o	\
-								\
-	src/filter/tests/data/firdecim_rrrf_data_M5h23x50.o	\
-	src/filter/tests/data/firdecim_crcf_data_M5h23x50.o	\
-	src/filter/tests/data/firdecim_cccf_data_M5h23x50.o	\
-								\
-	src/filter/tests/firfilt_runtest.o			\
-								\
-	src/filter/tests/data/firfilt_rrrf_data_h4x8.o		\
-	src/filter/tests/data/firfilt_crcf_data_h4x8.o		\
-	src/filter/tests/data/firfilt_cccf_data_h4x8.o		\
-								\
-	src/filter/tests/data/firfilt_rrrf_data_h7x16.o		\
-	src/filter/tests/data/firfilt_crcf_data_h7x16.o		\
-	src/filter/tests/data/firfilt_cccf_data_h7x16.o		\
-								\
-	src/filter/tests/data/firfilt_rrrf_data_h13x32.o	\
-	src/filter/tests/data/firfilt_crcf_data_h13x32.o	\
-	src/filter/tests/data/firfilt_cccf_data_h13x32.o	\
-								\
-	src/filter/tests/data/firfilt_rrrf_data_h23x64.o	\
-	src/filter/tests/data/firfilt_crcf_data_h23x64.o	\
-	src/filter/tests/data/firfilt_cccf_data_h23x64.o	\
-								\
-	src/filter/tests/iirfilt_runtest.o			\
-								\
-	src/filter/tests/data/iirfilt_rrrf_data_h3x64.o		\
-	src/filter/tests/data/iirfilt_crcf_data_h3x64.o		\
-	src/filter/tests/data/iirfilt_cccf_data_h3x64.o		\
-								\
-	src/filter/tests/data/iirfilt_rrrf_data_h5x64.o		\
-	src/filter/tests/data/iirfilt_crcf_data_h5x64.o		\
-	src/filter/tests/data/iirfilt_cccf_data_h5x64.o		\
-								\
-	src/filter/tests/data/iirfilt_rrrf_data_h7x64.o		\
-	src/filter/tests/data/iirfilt_crcf_data_h7x64.o		\
-	src/filter/tests/data/iirfilt_cccf_data_h7x64.o		\
+	/src/filter/tests/data/firdecim_rrrf_data_M2h4x20.o	\
+	/src/filter/tests/data/firdecim_crcf_data_M2h4x20.o	\
+	/src/filter/tests/data/firdecim_cccf_data_M2h4x20.o	\
+							\
+	/src/filter/tests/data/firdecim_rrrf_data_M3h7x30.o	\
+	/src/filter/tests/data/firdecim_crcf_data_M3h7x30.o	\
+	/src/filter/tests/data/firdecim_cccf_data_M3h7x30.o	\
+							\
+	/src/filter/tests/data/firdecim_rrrf_data_M4h13x40.o	\
+	/src/filter/tests/data/firdecim_crcf_data_M4h13x40.o	\
+	/src/filter/tests/data/firdecim_cccf_data_M4h13x40.o	\
+							\
+	/src/filter/tests/data/firdecim_rrrf_data_M5h23x50.o	\
+	/src/filter/tests/data/firdecim_crcf_data_M5h23x50.o	\
+	/src/filter/tests/data/firdecim_cccf_data_M5h23x50.o	\
+							\
+	/src/filter/tests/firfilt_runtest.o			\
+							\
+	/src/filter/tests/data/firfilt_rrrf_data_h4x8.o		\
+	/src/filter/tests/data/firfilt_crcf_data_h4x8.o		\
+	/src/filter/tests/data/firfilt_cccf_data_h4x8.o		\
+							\
+	/src/filter/tests/data/firfilt_rrrf_data_h7x16.o		\
+	/src/filter/tests/data/firfilt_crcf_data_h7x16.o		\
+	/src/filter/tests/data/firfilt_cccf_data_h7x16.o		\
+							\
+	/src/filter/tests/data/firfilt_rrrf_data_h13x32.o	\
+	/src/filter/tests/data/firfilt_crcf_data_h13x32.o	\
+	/src/filter/tests/data/firfilt_cccf_data_h13x32.o	\
+							\
+	/src/filter/tests/data/firfilt_rrrf_data_h23x64.o	\
+	/src/filter/tests/data/firfilt_crcf_data_h23x64.o	\
+	/src/filter/tests/data/firfilt_cccf_data_h23x64.o	\
+							\
+	/src/filter/tests/iirfilt_runtest.o			\
+							\
+	/src/filter/tests/data/iirfilt_rrrf_data_h3x64.o		\
+	/src/filter/tests/data/iirfilt_crcf_data_h3x64.o		\
+	/src/filter/tests/data/iirfilt_cccf_data_h3x64.o		\
+							\
+	/src/filter/tests/data/iirfilt_rrrf_data_h5x64.o		\
+	/src/filter/tests/data/iirfilt_crcf_data_h5x64.o		\
+	/src/filter/tests/data/iirfilt_cccf_data_h5x64.o		\
+							\
+	/src/filter/tests/data/iirfilt_rrrf_data_h7x64.o		\
+	/src/filter/tests/data/iirfilt_crcf_data_h7x64.o		\
+	/src/filter/tests/data/iirfilt_cccf_data_h7x64.o		\
 
 filter_benchmarks :=						\
-	src/filter/bench/firdecim_benchmark.c			\
-	src/filter/bench/firhilb_benchmark.c			\
-	src/filter/bench/firinterp_crcf_benchmark.c		\
-	src/filter/bench/firfilt_crcf_benchmark.c		\
-	src/filter/bench/iirfilt_crcf_benchmark.c		\
-	src/filter/bench/resamp_crcf_benchmark.c		\
-	src/filter/bench/resamp2_crcf_benchmark.c		\
-	src/filter/bench/symsync_crcf_benchmark.c		\
+	$(srcdir)/src/filter/bench/firdecim_benchmark.c			\
+	$(srcdir)/src/filter/bench/firhilb_benchmark.c			\
+	$(srcdir)/src/filter/bench/firinterp_crcf_benchmark.c		\
+	$(srcdir)/src/filter/bench/firfilt_crcf_benchmark.c		\
+	$(srcdir)/src/filter/bench/iirfilt_crcf_benchmark.c		\
+	$(srcdir)/src/filter/bench/resamp_crcf_benchmark.c		\
+	$(srcdir)/src/filter/bench/resamp2_crcf_benchmark.c		\
+	$(srcdir)/src/filter/bench/symsync_crcf_benchmark.c		\
 
 # 
 # MODULE : framing
@@ -578,13 +578,13 @@ src/framing/src/bpacketgen.o : %.o : %.c $(headers)
 
 src/framing/src/bpacketsync.o : %.o : %.c $(headers)
 
-src/framing/src/bpresync_cccf.o : %.o : %.c $(headers) src/framing/src/bpresync.c
+src/framing/src/bpresync_cccf.o : %.o : %.c $(headers) $(srcdir)/src/framing/src/bpresync.c
 
-src/framing/src/bsync_rrrf.o : %.o : %.c $(headers) src/framing/src/bsync.c
+src/framing/src/bsync_rrrf.o : %.o : %.c $(headers) $(srcdir)/src/framing/src/bsync.c
 
-src/framing/src/bsync_crcf.o : %.o : %.c $(headers) src/framing/src/bsync.c
+src/framing/src/bsync_crcf.o : %.o : %.c $(headers) $(srcdir)/src/framing/src/bsync.c
 
-src/framing/src/bsync_cccf.o : %.o : %.c $(headers) src/framing/src/bsync.c
+src/framing/src/bsync_cccf.o : %.o : %.c $(headers) $(srcdir)/src/framing/src/bsync.c
 
 src/framing/src/detector_cccf.o : %.o : %.c $(headers)
 
@@ -602,25 +602,25 @@ src/framing/src/ofdmflexframegen.o : %.o : %.c $(headers)
 
 src/framing/src/ofdmflexframesync.o : %.o : %.c $(headers)
 
-src/framing/src/presync_cccf.o : %.o : %.c $(headers) src/framing/src/presync.c
+src/framing/src/presync_cccf.o : %.o : %.c $(headers) $(srcdir)/src/framing/src/presync.c
 
 
 framing_autotests :=						\
-	src/framing/tests/bpacketsync_autotest.c		\
-	src/framing/tests/bsync_autotest.c			\
-	src/framing/tests/detector_autotest.c			\
-	src/framing/tests/framesync64_autotest.c		\
+	$(srcdir)/src/framing/tests/bpacketsync_autotest.c		\
+	$(srcdir)/src/framing/tests/bsync_autotest.c			\
+	$(srcdir)/src/framing/tests/detector_autotest.c			\
+	$(srcdir)/src/framing/tests/framesync64_autotest.c		\
 
 
 framing_benchmarks :=						\
-	src/framing/bench/presync_benchmark.c			\
-	src/framing/bench/bpacketsync_benchmark.c		\
-	src/framing/bench/bpresync_benchmark.c			\
-	src/framing/bench/bsync_benchmark.c			\
-	src/framing/bench/detector_benchmark.c			\
-	src/framing/bench/flexframesync_benchmark.c		\
-	src/framing/bench/framesync64_benchmark.c		\
-	src/framing/bench/gmskframesync_benchmark.c		\
+	$(srcdir)/src/framing/bench/presync_benchmark.c			\
+	$(srcdir)/src/framing/bench/bpacketsync_benchmark.c		\
+	$(srcdir)/src/framing/bench/bpresync_benchmark.c			\
+	$(srcdir)/src/framing/bench/bsync_benchmark.c			\
+	$(srcdir)/src/framing/bench/detector_benchmark.c			\
+	$(srcdir)/src/framing/bench/flexframesync_benchmark.c		\
+	$(srcdir)/src/framing/bench/framesync64_benchmark.c		\
+	$(srcdir)/src/framing/bench/gmskframesync_benchmark.c		\
 
 
 # 
@@ -641,10 +641,10 @@ math_objects :=							\
 
 
 poly_includes :=						\
-	src/math/src/poly.common.c				\
-	src/math/src/poly.expand.c				\
-	src/math/src/poly.findroots.c				\
-	src/math/src/poly.lagrange.c				\
+	$(srcdir)/src/math/src/poly.common.c				\
+	$(srcdir)/src/math/src/poly.expand.c				\
+	$(srcdir)/src/math/src/poly.findroots.c				\
+	$(srcdir)/src/math/src/poly.lagrange.c				\
 
 src/math/src/poly.o : %.o : %.c $(headers) $(poly_includes)
 
@@ -668,16 +668,16 @@ src/math/src/modular_arithmetic.o : %.o : %.c $(headers)
 
 
 math_autotests :=						\
-	src/math/tests/kbd_autotest.c				\
-	src/math/tests/math_autotest.c				\
-	src/math/tests/math_bessel_autotest.c			\
-	src/math/tests/math_gamma_autotest.c			\
-	src/math/tests/math_complex_autotest.c			\
-	src/math/tests/polynomial_autotest.c			\
+	$(srcdir)/src/math/tests/kbd_autotest.c				\
+	$(srcdir)/src/math/tests/math_autotest.c				\
+	$(srcdir)/src/math/tests/math_bessel_autotest.c			\
+	$(srcdir)/src/math/tests/math_gamma_autotest.c			\
+	$(srcdir)/src/math/tests/math_complex_autotest.c			\
+	$(srcdir)/src/math/tests/polynomial_autotest.c			\
 
 
 math_benchmarks :=						\
-	src/math/bench/polyfit_benchmark.c			\
+	$(srcdir)/src/math/bench/polyfit_benchmark.c			\
 
 
 #
@@ -696,15 +696,15 @@ matrix_objects :=						\
 
 
 matrix_includes :=						\
-	src/matrix/src/matrix.base.c				\
-	src/matrix/src/matrix.cgsolve.c				\
-	src/matrix/src/matrix.chol.c				\
-	src/matrix/src/matrix.gramschmidt.c			\
-	src/matrix/src/matrix.inv.c				\
-	src/matrix/src/matrix.linsolve.c			\
-	src/matrix/src/matrix.ludecomp.c			\
-	src/matrix/src/matrix.qrdecomp.c			\
-	src/matrix/src/matrix.math.c				\
+	$(srcdir)/src/matrix/src/matrix.base.c				\
+	$(srcdir)/src/matrix/src/matrix.cgsolve.c				\
+	$(srcdir)/src/matrix/src/matrix.chol.c				\
+	$(srcdir)/src/matrix/src/matrix.gramschmidt.c			\
+	$(srcdir)/src/matrix/src/matrix.inv.c				\
+	$(srcdir)/src/matrix/src/matrix.linsolve.c			\
+	$(srcdir)/src/matrix/src/matrix.ludecomp.c			\
+	$(srcdir)/src/matrix/src/matrix.qrdecomp.c			\
+	$(srcdir)/src/matrix/src/matrix.math.c				\
 
 src/matrix/src/matrix.o : %.o : %.c $(headers) $(matrix_includes)
 
@@ -714,20 +714,20 @@ src/matrix/src/matrixf.o : %.o : %.c $(headers) $(matrix_includes)
 
 src/matrix/src/matrixcf.o : %.o : %.c $(headers) $(matrix_includes)
 
-src/matrix/src/smatrixb.o: %.o : %.c $(headers) src/matrix/src/smatrix.c
+src/matrix/src/smatrixb.o: %.o : %.c $(headers) $(srcdir)/src/matrix/src/smatrix.c
 
-src/matrix/src/smatrixf.o: %.o : %.c $(headers) src/matrix/src/smatrix.c
+src/matrix/src/smatrixf.o: %.o : %.c $(headers) $(srcdir)/src/matrix/src/smatrix.c
 
-src/matrix/src/smatrixi.o: %.o : %.c $(headers) src/matrix/src/smatrix.c
+src/matrix/src/smatrixi.o: %.o : %.c $(headers) $(srcdir)/src/matrix/src/smatrix.c
 
 
 # matrix autotest scripts
 matrix_autotests :=						\
-	src/matrix/tests/matrixcf_autotest.c			\
-	src/matrix/tests/matrixf_autotest.c			\
-	src/matrix/tests/smatrixb_autotest.c			\
-	src/matrix/tests/smatrixf_autotest.c			\
-	src/matrix/tests/smatrixi_autotest.c			\
+	$(srcdir)/src/matrix/tests/matrixcf_autotest.c			\
+	$(srcdir)/src/matrix/tests/matrixf_autotest.c			\
+	$(srcdir)/src/matrix/tests/smatrixb_autotest.c			\
+	$(srcdir)/src/matrix/tests/smatrixf_autotest.c			\
+	$(srcdir)/src/matrix/tests/smatrixi_autotest.c			\
 
 # additional autotest objects
 autotest_extra_obj +=						\
@@ -742,7 +742,7 @@ autotest_extra_obj +=						\
 	src/matrix/tests/data/matrixf_data_mul.o		\
 	src/matrix/tests/data/matrixf_data_qrdecomp.o		\
 	src/matrix/tests/data/matrixf_data_transmul.o		\
-								\
+							\
 	src/matrix/tests/data/matrixcf_data_add.o		\
 	src/matrix/tests/data/matrixcf_data_aug.o		\
 	src/matrix/tests/data/matrixcf_data_chol.o		\
@@ -754,10 +754,10 @@ autotest_extra_obj +=						\
 	src/matrix/tests/data/matrixcf_data_transmul.o		\
 
 matrix_benchmarks :=						\
-	src/matrix/bench/matrixf_inv_benchmark.c		\
-	src/matrix/bench/matrixf_linsolve_benchmark.c		\
-	src/matrix/bench/matrixf_mul_benchmark.c		\
-	src/matrix/bench/smatrixf_mul_benchmark.c		\
+	$(srcdir)/src/matrix/bench/matrixf_inv_benchmark.c		\
+	$(srcdir)/src/matrix/bench/matrixf_linsolve_benchmark.c		\
+	$(srcdir)/src/matrix/bench/matrixf_mul_benchmark.c		\
+	$(srcdir)/src/matrix/bench/smatrixf_mul_benchmark.c		\
 
 
 # 
@@ -775,22 +775,22 @@ modem_objects :=						\
 
 # explicit targets and dependencies
 modem_includes :=						\
-	src/modem/src/freqdem.c					\
-	src/modem/src/freqmod.c					\
-	src/modem/src/modem_common.c				\
-	src/modem/src/modem_psk.c				\
-	src/modem/src/modem_dpsk.c				\
-	src/modem/src/modem_ask.c				\
-	src/modem/src/modem_qam.c				\
-	src/modem/src/modem_apsk.c				\
-	src/modem/src/modem_bpsk.c				\
-	src/modem/src/modem_qpsk.c				\
-	src/modem/src/modem_ook.c				\
-	src/modem/src/modem_sqam32.c				\
-	src/modem/src/modem_sqam128.c				\
-	src/modem/src/modem_arb.c				\
+	$(srcdir)/src/modem/src/freqdem.c					\
+	$(srcdir)/src/modem/src/freqmod.c					\
+	$(srcdir)/src/modem/src/modem_common.c				\
+	$(srcdir)/src/modem/src/modem_psk.c				\
+	$(srcdir)/src/modem/src/modem_dpsk.c				\
+	$(srcdir)/src/modem/src/modem_ask.c				\
+	$(srcdir)/src/modem/src/modem_qam.c				\
+	$(srcdir)/src/modem/src/modem_apsk.c				\
+	$(srcdir)/src/modem/src/modem_bpsk.c				\
+	$(srcdir)/src/modem/src/modem_qpsk.c				\
+	$(srcdir)/src/modem/src/modem_ook.c				\
+	$(srcdir)/src/modem/src/modem_sqam32.c				\
+	$(srcdir)/src/modem/src/modem_sqam128.c				\
+	$(srcdir)/src/modem/src/modem_arb.c				\
 
-#src/modem/src/modem_demod_soft_const.c
+#$(srcdir)/src/modem/src/modem_demod_soft_const.c
 
 # main modem object
 src/modem/src/modemf.o : %.o : %.c $(headers) $(modem_includes)
@@ -811,17 +811,17 @@ src/modem/src/modem_arb_const.o: %.o : %.c $(headers)
 
 
 modem_autotests :=						\
-	src/modem/tests/freqmodem_autotest.c			\
-	src/modem/tests/modem_autotest.c			\
-	src/modem/tests/modem_demodsoft_autotest.c		\
-	src/modem/tests/modem_demodstats_autotest.c		\
+	$(srcdir)/src/modem/tests/freqmodem_autotest.c			\
+	$(srcdir)/src/modem/tests/modem_autotest.c			\
+	$(srcdir)/src/modem/tests/modem_demodsoft_autotest.c		\
+	$(srcdir)/src/modem/tests/modem_demodstats_autotest.c		\
 
 
 modem_benchmarks :=						\
-	src/modem/bench/gmskmodem_benchmark.c			\
-	src/modem/bench/modem_modulate_benchmark.c		\
-	src/modem/bench/modem_demodulate_benchmark.c		\
-	src/modem/bench/modem_demodsoft_benchmark.c		\
+	$(srcdir)/src/modem/bench/gmskmodem_benchmark.c			\
+	$(srcdir)/src/modem/bench/modem_modulate_benchmark.c		\
+	$(srcdir)/src/modem/bench/modem_demodulate_benchmark.c		\
+	$(srcdir)/src/modem/bench/modem_demodsoft_benchmark.c		\
 
 # 
 # MODULE : multichannel
@@ -838,25 +838,25 @@ $(multichannel_objects) : %.o : %.c $(headers)
 
 # list explicit targets and dependencies here
 multichannel_includes :=					\
-	src/multichannel/src/firpfbch.c				\
-	src/multichannel/src/firpfbch2.c			\
+	$(srcdir)/src/multichannel/src/firpfbch.c				\
+	$(srcdir)/src/multichannel/src/firpfbch2.c			\
 
 src/multichannel/src/firpfbch_crcf.o : %.o : %.c $(headers) $(multichannel_includes)
 src/multichannel/src/firpfbch_cccf.o : %.o : %.c $(headers) $(multichannel_includes)
 
 # autotests
 multichannel_autotests :=					\
-	src/multichannel/tests/firpfbch2_crcf_autotest.c	\
-	src/multichannel/tests/firpfbch_crcf_synthesizer_autotest.c	\
-	src/multichannel/tests/firpfbch_crcf_analyzer_autotest.c	\
-	src/multichannel/tests/ofdmframesync_autotest.c		\
+	$(srcdir)/src/multichannel/tests/firpfbch2_crcf_autotest.c	\
+	$(srcdir)/src/multichannel/tests/firpfbch_crcf_synthesizer_autotest.c	\
+	$(srcdir)/src/multichannel/tests/firpfbch_crcf_analyzer_autotest.c	\
+	$(srcdir)/src/multichannel/tests/ofdmframesync_autotest.c		\
 
 # benchmarks
 multichannel_benchmarks :=					\
-	src/multichannel/bench/firpfbch_crcf_benchmark.c	\
-	src/multichannel/bench/firpfbch2_crcf_benchmark.c	\
-	src/multichannel/bench/ofdmframesync_acquire_benchmark.c	\
-	src/multichannel/bench/ofdmframesync_rxsymbol_benchmark.c	\
+	$(srcdir)/src/multichannel/bench/firpfbch_crcf_benchmark.c	\
+	$(srcdir)/src/multichannel/bench/firpfbch2_crcf_benchmark.c	\
+	$(srcdir)/src/multichannel/bench/ofdmframesync_acquire_benchmark.c	\
+	$(srcdir)/src/multichannel/bench/ofdmframesync_rxsymbol_benchmark.c	\
 
 # 
 # MODULE : nco - numerically-controlled oscillator
@@ -867,17 +867,17 @@ nco_objects :=							\
 	src/nco/src/nco.utilities.o				\
 
 
-src/nco/src/nco_crcf.o: %.o : %.c $(headers) src/nco/src/nco.c
+src/nco/src/nco_crcf.o: %.o : %.c $(headers) $(srcdir)/src/nco/src/nco.c
 
 src/nco/src/nco.utilities.o: %.o : %.c $(headers)
 
 
 # autotests
 nco_autotests :=						\
-	src/nco/tests/nco_crcf_frequency_autotest.c		\
-	src/nco/tests/nco_crcf_phase_autotest.c			\
-	src/nco/tests/nco_crcf_pll_autotest.c			\
-	src/nco/tests/unwrap_phase_autotest.c			\
+	$(srcdir)/src/nco/tests/nco_crcf_frequency_autotest.c		\
+	$(srcdir)/src/nco/tests/nco_crcf_phase_autotest.c			\
+	$(srcdir)/src/nco/tests/nco_crcf_pll_autotest.c			\
+	$(srcdir)/src/nco/tests/unwrap_phase_autotest.c			\
 
 # additional autotest objects
 autotest_extra_obj +=						\
@@ -888,8 +888,8 @@ autotest_extra_obj +=						\
 
 # benchmarks
 nco_benchmarks :=						\
-	src/nco/bench/nco_benchmark.c				\
-	src/nco/bench/vco_benchmark.c				\
+	$(srcdir)/src/nco/bench/nco_benchmark.c				\
+	$(srcdir)/src/nco/bench/vco_benchmark.c				\
 
 # 
 # MODULE : optim - optimization
@@ -907,7 +907,7 @@ $(optim_objects) : %.o : %.c $(headers)
 
 # autotests
 optim_autotests :=						\
-	src/optim/tests/gradsearch_autotest.c			\
+	$(srcdir)/src/optim/tests/gradsearch_autotest.c			\
 
 # benchmarks
 optim_benchmarks :=
@@ -926,23 +926,23 @@ quantization_objects :=						\
 
 src/quantization/src/compand.o: %.o : %.c $(headers)
 
-src/quantization/src/quantizercf.o: %.o : %.c $(headers) src/quantization/src/quantizer.c
+src/quantization/src/quantizercf.o: %.o : %.c $(headers) $(srcdir)/src/quantization/src/quantizer.c
 
-src/quantization/src/quantizerf.o: %.o : %.c $(headers) src/quantization/src/quantizer.c
+src/quantization/src/quantizerf.o: %.o : %.c $(headers) $(srcdir)/src/quantization/src/quantizer.c
 
 src/quantization/src/quantizer.inline.o: %.o : %.c $(headers)
 
 
 # autotests
 quantization_autotests :=					\
-	src/quantization/tests/compand_autotest.c		\
-	src/quantization/tests/quantize_autotest.c		\
+	$(srcdir)/src/quantization/tests/compand_autotest.c		\
+	$(srcdir)/src/quantization/tests/quantize_autotest.c		\
 
 
 # benchmarks
 quantization_benchmarks :=					\
-	src/quantization/bench/quantizer_benchmark.c		\
-	src/quantization/bench/compander_benchmark.c		\
+	$(srcdir)/src/quantization/bench/quantizer_benchmark.c		\
+	$(srcdir)/src/quantization/bench/compander_benchmark.c		\
 
 # 
 # MODULE : random
@@ -963,14 +963,14 @@ $(random_objects) : %.o : %.c $(headers)
 
 # autotests
 random_autotests :=						\
-	src/random/tests/scramble_autotest.c			\
+	$(srcdir)/src/random/tests/scramble_autotest.c			\
 
-#	src/random/tests/random_autotest.c
+#	$(srcdir)/src/random/tests/random_autotest.c
 
 
 # benchmarks
 random_benchmarks :=						\
-	src/random/bench/random_benchmark.c			\
+	$(srcdir)/src/random/bench/random_benchmark.c			\
 
 
 # 
@@ -987,13 +987,13 @@ $(sequence_objects) : %.o : %.c $(headers)
 
 # autotests
 sequence_autotests :=						\
-	src/sequence/tests/bsequence_autotest.c			\
-	src/sequence/tests/complementary_codes_autotest.c	\
-	src/sequence/tests/msequence_autotest.c			\
+	$(srcdir)/src/sequence/tests/bsequence_autotest.c			\
+	$(srcdir)/src/sequence/tests/complementary_codes_autotest.c	\
+	$(srcdir)/src/sequence/tests/msequence_autotest.c			\
 
 # benchmarks
 sequence_benchmarks :=						\
-	src/sequence/bench/bsequence_benchmark.c		\
+	$(srcdir)/src/sequence/bench/bsequence_benchmark.c		\
 
 # 
 # MODULE : utility
@@ -1010,10 +1010,10 @@ $(utility_objects) : %.o : %.c $(headers)
 
 # autotests
 utility_autotests :=						\
-	src/utility/tests/bshift_array_autotest.c		\
-	src/utility/tests/count_bits_autotest.c			\
-	src/utility/tests/pack_bytes_autotest.c			\
-	src/utility/tests/shift_array_autotest.c		\
+	$(srcdir)/src/utility/tests/bshift_array_autotest.c		\
+	$(srcdir)/src/utility/tests/count_bits_autotest.c			\
+	$(srcdir)/src/utility/tests/pack_bytes_autotest.c			\
+	$(srcdir)/src/utility/tests/shift_array_autotest.c		\
 
 
 # benchmarks
@@ -1033,11 +1033,11 @@ utility_benchmarks :=
 # explicit targets and dependencies
 
 experimental_filter_includes :=					\
-	src/experimental/src/iirqmfb.c				\
-	src/experimental/src/itqmfb.c				\
-	src/experimental/src/qmfb.c				\
-	src/experimental/src/symsync2.c				\
-	src/experimental/src/symsynclp.c			\
+	$(srcdir)/src/experimental/src/iirqmfb.c				\
+	$(srcdir)/src/experimental/src/itqmfb.c				\
+	$(srcdir)/src/experimental/src/qmfb.c				\
+	$(srcdir)/src/experimental/src/symsync2.c				\
+	$(srcdir)/src/experimental/src/symsynclp.c			\
 
 src/experimental/src/filter_rrrf.o: %.o : %.c $(headers) $(experimental_filter_includes)
 
@@ -1130,6 +1130,8 @@ benchmark_sources :=						\
 .PHONY: all
 
 # Shared library
+SHARED_LIB_BASE	= @SH_LIB_BASE@
+SHARED_LIB_LN	= @SH_LIB_LN@
 SHARED_LIB	= @SH_LIB@
 
 # liquid library definition
@@ -1144,7 +1146,7 @@ libliquid.dylib: $(objects)
 	$(CC) -dynamiclib -install_name $@ -o $@ $^ $(LDFLAGS)
 
 # linux, et al
-libliquid.so: libliquid.a
+libliquid.so.0.0.0: libliquid.a
 	$(CC) -shared -Xlinker -soname=$@ -o $@ -Wl,-whole-archive $^ -Wl,-no-whole-archive $(LDFLAGS)
 
 all: libliquid.a $(SHARED_LIB)
@@ -1166,6 +1168,8 @@ install:
 	@echo "installing..."
 	mkdir -p $(DESTDIR)$(exec_prefix)/lib
 	install -m 644 -p $(SHARED_LIB) libliquid.a $(DESTDIR)$(exec_prefix)/lib
+	ln -sf $(DESTDIR)$(exec_prefix)/lib/$(SHARED_LIB) $(DESTDIR)$(exec_prefix)/lib/$(SHARED_LIB_LN)
+	ln -sf $(DESTDIR)$(exec_prefix)/lib/$(SHARED_LIB_LN) $(DESTDIR)$(exec_prefix)/lib/$(SHARED_LIB_BASE)
 	mkdir -p $(DESTDIR)$(prefix)/include
 	mkdir -p $(DESTDIR)$(prefix)/include/liquid
 	install -m 644 -p $(addprefix include/,$(headers_install)) $(DESTDIR)$(prefix)/include/liquid
